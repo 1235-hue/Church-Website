@@ -1,58 +1,34 @@
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
 import type { Media } from '../types';
-import g01 from '../assets/gallery-01.png';
-import g02 from '../assets/gallery-02.png';
-import g03 from '../assets/gallery-03.png';
-import g04 from '../assets/gallery-04.png';
-import g05 from '../assets/gallery-05.png';
-import g06 from '../assets/gallery-06.png';
-import g07 from '../assets/gallery-07.png';
-import g08 from '../assets/gallery-08.png';
-import g09 from '../assets/gallery-09.png';
-import g10 from '../assets/gallery-10.png';
-import g11 from '../assets/gallery-11.png';
-import g12 from '../assets/gallery-12.png';
-import g13 from '../assets/gallery-13.png';
-import g14 from '../assets/gallery-14.png';
-import g15 from '../assets/gallery-15.png';
-import g16 from '../assets/gallery-16.png';
-import g17 from '../assets/gallery-17.png';
-import g18 from '../assets/gallery-18.png';
-import g19 from '../assets/gallery-19.png';
-import g20 from '../assets/gallery-20.png';
-import g21 from '../assets/gallery-21.png';
-import g22 from '../assets/gallery-22.png';
-import g23 from '../assets/gallery-23.png';
-import g24 from '../assets/gallery-24.png';
-import g25 from '../assets/gallery-25.png';
+// Images are hosted in Supabase storage; local imports removed.
 
 const FALLBACK: Media[] = [
-  { id: 'cpm1',  caption: 'Leaders fellowship gathering',           image_url: g01, created_at: '' },
-  { id: 'cpm2',  caption: 'Lakeside baptism preparation',           image_url: g02, created_at: '' },
-  { id: 'cpm3',  caption: 'Congregants by the lake',                image_url: g03, created_at: '' },
-  { id: 'cpm4',  caption: 'Sunday service – mothers & leaders',     image_url: g04, created_at: '' },
-  { id: 'cpm5',  caption: 'Baptism in Lake Victoria',               image_url: g05, created_at: '' },
-  { id: 'cpm6',  caption: 'Church family at the shoreline',         image_url: g06, created_at: '' },
-  { id: 'cpm7',  caption: 'Community outreach at Mbita market',     image_url: g07, created_at: '' },
-  { id: 'cpm8',  caption: 'Youth & congregation worship service',   image_url: g08, created_at: '' },
-  { id: 'cpm9',  caption: 'Leaders meeting at Bimoss',              image_url: g09, created_at: '' },
-  { id: 'cpm10', caption: 'Outdoor leaders fellowship',             image_url: g10, created_at: '' },
-  { id: 'cpm11', caption: 'Mothers attending service',              image_url: g11, created_at: '' },
-  { id: 'cpm12', caption: 'Baptism in the lake',                    image_url: g12, created_at: '' },
-  { id: 'cpm13', caption: 'Prayer at the lakeside',                 image_url: g13, created_at: '' },
-  { id: 'cpm14', caption: 'Open-air evangelism at the market',      image_url: g14, created_at: '' },
-  { id: 'cpm15', caption: 'Leaders strategy meeting',               image_url: g15, created_at: '' },
-  { id: 'cpm16', caption: 'Youth conference gathering',             image_url: g16, created_at: '' },
-  { id: 'cpm17', caption: 'Street preaching in Mbita town',         image_url: g17, created_at: '' },
-  { id: 'cpm18', caption: 'Lakeside ministry team',                 image_url: g18, created_at: '' },
-  { id: 'cpm19', caption: 'Sunday worship congregation',            image_url: g19, created_at: '' },
-  { id: 'cpm20', caption: 'Clergy gathering at C.O.P sanctuary',     image_url: g20, created_at: '' },
-  { id: 'cpm21', caption: 'Church family after Sunday service',     image_url: g21, created_at: '' },
-  { id: 'cpm22', caption: 'Testimony time during service',          image_url: g22, created_at: '' },
-  { id: 'cpm23', caption: 'Pastor addressing the congregation',     image_url: g23, created_at: '' },
-  { id: 'cpm24', caption: 'Sunday service congregation under the shelter', image_url: g24, created_at: '' },
-  { id: 'cpm25', caption: 'Worship leaders ministering in song',          image_url: g25, created_at: '' },
+  { id: 'cpm1',  caption: 'Leaders fellowship gathering',           image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-01.png', created_at: '' },
+  { id: 'cpm2',  caption: 'Lakeside baptism preparation',           image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-02.png', created_at: '' },
+  { id: 'cpm3',  caption: 'Congregants by the lake',                image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-03.png', created_at: '' },
+  { id: 'cpm4',  caption: 'Sunday service – mothers & leaders',     image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-04.png', created_at: '' },
+  { id: 'cpm5',  caption: 'Baptism in Lake Victoria',               image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-05.png', created_at: '' },
+  { id: 'cpm6',  caption: 'Church family at the shoreline',         image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-06.png', created_at: '' },
+  { id: 'cpm7',  caption: 'Community outreach at Mbita market',     image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-07.png', created_at: '' },
+  { id: 'cpm8',  caption: 'Youth & congregation worship service',   image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-08.png', created_at: '' },
+  { id: 'cpm9',  caption: 'Leaders meeting at Bimoss',              image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-09.png', created_at: '' },
+  { id: 'cpm10', caption: 'Outdoor leaders fellowship',             image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-10.png', created_at: '' },
+  { id: 'cpm11', caption: 'Mothers attending service',              image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-11.png', created_at: '' },
+  { id: 'cpm12', caption: 'Baptism in the lake',                    image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-12.png', created_at: '' },
+  { id: 'cpm13', caption: 'Prayer at the lakeside',                 image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-13.png', created_at: '' },
+  { id: 'cpm14', caption: 'Open-air evangelism at the market',      image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-14.png', created_at: '' },
+  { id: 'cpm15', caption: 'Leaders strategy meeting',               image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-15.png', created_at: '' },
+  { id: 'cpm16', caption: 'Youth conference gathering',             image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-16.png', created_at: '' },
+  { id: 'cpm17', caption: 'Street preaching in Mbita town',         image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-17.png', created_at: '' },
+  { id: 'cpm18', caption: 'Lakeside ministry team',                 image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-18.png', created_at: '' },
+  { id: 'cpm19', caption: 'Sunday worship congregation',            image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-19.png', created_at: '' },
+  { id: 'cpm20', caption: 'Clergy gathering at C.O.P sanctuary',     image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-20.png', created_at: '' },
+  { id: 'cpm21', caption: 'Church family after Sunday service',     image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-21.png', created_at: '' },
+  { id: 'cpm22', caption: 'Testimony time during service',          image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-22.png', created_at: '' },
+  { id: 'cpm23', caption: 'Pastor addressing the congregation',     image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-23.png', created_at: '' },
+  { id: 'cpm24', caption: 'Sunday service congregation under the shelter', image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-24.png', created_at: '' },
+  { id: 'cpm25', caption: 'Worship leaders ministering in song',    image_url: 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-25.png', created_at: '' },
 ];
 
 export default function Gallery() {
