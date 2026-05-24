@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
   password_hash VARCHAR(255) NOT NULL,
   role          VARCHAR(20)  NOT NULL DEFAULT 'admin'
                 CHECK (role IN ('admin','staff')),
-  created_at    TIMESTAMPTZ DEFAULT NOW()
+  created_at   ' DEFAULT NOW()
 );
 
 -- ---------- Fundraising goal (single row, updated by admin) ----------
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS contributions (
   method          VARCHAR(40)  NOT NULL DEFAULT 'cash'
                   CHECK (method IN ('cash','bank','mobile_money','card','other')),
   note            TEXT,
-  contributed_at  TIMESTAMPTZ DEFAULT NOW(),
+  contributed_at ' DEFAULT NOW(),
   recorded_by     UUID REFERENCES users(id) ON DELETE SET NULL
 );
 CREATE INDEX IF NOT EXISTS idx_contrib_date ON contributions(contributed_at DESC);
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS items (
   raised       NUMERIC(12,2) NOT NULL DEFAULT 0 CHECK (raised >= 0),
   status       VARCHAR(20)  NOT NULL DEFAULT 'pending'
                CHECK (status IN ('pending','partially_funded','funded','purchased')),
-  created_at   TIMESTAMPTZ DEFAULT NOW()
+  created_at  ' DEFAULT NOW()
 );
 
 -- ---------- RSVPs / attendance ----------
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS rsvps (
   phone       VARCHAR(40),
   guests      INT NOT NULL DEFAULT 1 CHECK (guests BETWEEN 1 AND 20),
   message     TEXT,
-  created_at  TIMESTAMPTZ DEFAULT NOW(),
+  created_at ' DEFAULT NOW(),
   UNIQUE(email)
 );
 
@@ -70,9 +70,9 @@ CREATE TABLE IF NOT EXISTS events (
   title        VARCHAR(160) NOT NULL,
   description  TEXT,
   poster_url   TEXT,
-  starts_at    TIMESTAMPTZ NOT NULL,
+  starts_at   ' NOT NULL,
   location     VARCHAR(200),
-  created_at   TIMESTAMPTZ DEFAULT NOW()
+  created_at  ' DEFAULT NOW()
 );
 
 -- ---------- Media gallery ----------
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS media (
   id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   caption     VARCHAR(200),
   image_url   TEXT NOT NULL,
-  created_at  TIMESTAMPTZ DEFAULT NOW()
+  created_at ' DEFAULT NOW()
 );
 
 -- =========================================================
@@ -132,7 +132,7 @@ ON CONFLICT DO NOTHING;
 INSERT INTO events (title, description, starts_at, location) VALUES
   ('Fundraiser Gala 2026',
    'Join us for an evening of worship, music and community as we raise funds for new instruments.',
-   TIMESTAMPTZ '2026-06-01 17:00:00+00',
+  ' '2026-06-01 17:00:00+00',
    'Grace Community Church, Main Hall')
 ON CONFLICT DO NOTHING;
 
@@ -145,40 +145,40 @@ INSERT INTO events (title, description, poster_url, starts_at, location) VALUES
   ('Worship Night',
    'An evening of praise, worship and prayer led by our combined choirs.',
    'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1200&q=80',
-   TIMESTAMPTZ '2026-05-10 18:30:00+00',
+  ' '2026-05-10 18:30:00+00',
    'Grace Community Church, Sanctuary'),
   ('Community Outreach Day',
    'Serving our neighborhood with food, prayer and fellowship.',
    'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80',
-   TIMESTAMPTZ '2026-05-24 09:00:00+00',
+  ' '2026-05-24 09:00:00+00',
    'Church Grounds & City Park')
 ON CONFLICT DO NOTHING;
 
 -- Seed media gallery with sample photos from Supabase Storage
 INSERT INTO media (caption, image_url) VALUES
-  ('Leaders fellowship gathering',           'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-01.png'),
-  ('Lakeside baptism preparation',           'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-02.png'),
-  ('Congregants by the lake',                'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-03.png'),
-  ('Sunday service – mothers & leaders',     'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-04.png'),
-  ('Baptism in Lake Victoria',               'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-05.png'),
-  ('Church family at the shoreline',         'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-06.png'),
-  ('Community outreach at Mbita market',     'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-07.png'),
-  ('Youth & congregation worship service',   'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-08.png'),
-  ('Leaders meeting at Bimoss',              'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-09.png'),
-  ('Outdoor leaders fellowship',             'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-10.png'),
-  ('Mothers attending service',              'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-11.png'),
-  ('Baptism in the lake',                    'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-12.png'),
-  ('Prayer at the lakeside',                 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-13.png'),
-  ('Open-air evangelism at the market',      'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-14.png'),
-  ('Leaders strategy meeting',               'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-15.png'),
-  ('Youth conference gathering',             'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-16.png'),
-  ('Street preaching in Mbita town',         'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-17.png'),
-  ('Lakeside ministry team',                 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-18.png'),
-  ('Sunday worship congregation',            'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-19.png'),
-  ('Clergy gathering at C.O.P sanctuary',     'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-20.png'),
-  ('Church family after Sunday service',     'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-21.png'),
-  ('Testimony time during service',          'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-22.png'),
-  ('Pastor addressing the congregation',     'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-23.png'),
-  ('Sunday service congregation under the shelter', 'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-24.png'),
-  ('Worship leaders ministering in song',    'https://xxxx.supabase.co/storage/v1/object/public/gallery/gallery-25.png')
+  ('Leaders fellowship gathering',           'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-01.png'),
+  ('Lakeside baptism preparation',           'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-02.png'),
+  ('Congregants by the lake',                'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-03.png'),
+  ('Sunday service – mothers & leaders',     'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-04.png'),
+  ('Baptism in Lake Victoria',               'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-05.png'),
+  ('Church family at the shoreline',         'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-06.png'),
+  ('Community outreach at Mbita market',     'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-07.png'),
+  ('Youth & congregation worship service',   'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-08.png'),
+  ('Leaders meeting at Bimoss',              'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-09.png'),
+  ('Outdoor leaders fellowship',             'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-10.png'),
+  ('Mothers attending service',              'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-11.png'),
+  ('Baptism in the lake',                    'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-12.png'),
+  ('Prayer at the lakeside',                 'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-13.png'),
+  ('Open-air evangelism at the market',      'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-14.png'),
+  ('Leaders strategy meeting',               'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-15.png'),
+  ('Youth conference gathering',             'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-16.png'),
+  ('Street preaching in Mbita town',         'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-17.png'),
+  ('Lakeside ministry team',                 'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-18.png'),
+  ('Sunday worship congregation',            'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-19.png'),
+  ('Clergy gathering at C.O.P sanctuary',     'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-20.png'),
+  ('Church family after Sunday service',     'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-21.png'),
+  ('Testimony time during service',          'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-22.png'),
+  ('Pastor addressing the congregation',     'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-23.png'),
+  ('Sunday service congregation under the shelter', 'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-24.png'),
+  ('Worship leaders ministering in song',    'https://sivswtfpmgylqiukzmeb.supabase.co/storage/v1/object/public/gallery/gallery-25.png')
 ON CONFLICT DO NOTHING;

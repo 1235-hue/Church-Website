@@ -23,6 +23,7 @@ app.use(cors({
   origin: [
     'https://cpm-mbita.vercel.app',
     'https://church-website-app1.vercel.app',
+    
     'https://church-website-app1-git-main-1235-hues-projects.vercel.app',
     'http://localhost:5173'
   ],
