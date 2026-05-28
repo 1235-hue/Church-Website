@@ -30,9 +30,9 @@ export default function App() {
         {/* Authenticated (any role) */}
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/profile"   element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/items"      element={<ProtectedRoute><Items /></ProtectedRoute>} />
-        <Route path="/events"     element={<ProtectedRoute><Events /></ProtectedRoute>} />
-        <Route path="/gallery"    element={<ProtectedRoute><Gallery /></ProtectedRoute>} />
+        <Route path="/items"      element={<Items />} />
+        <Route path="/events"     element={<Events />} />
+        <Route path="/gallery"    element={<Gallery />} />
         <Route path="/rsvp"       element={<Rsvp />} />
         <Route path="/donate"     element={<Donate />} />
         <Route path="/invitation" element={<Invitation />} />

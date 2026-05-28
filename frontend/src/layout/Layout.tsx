@@ -7,36 +7,35 @@ const linkClass = ({ isActive }: { isActive: boolean }) =>
     isActive ? 'bg-brand-100 text-brand-900' : 'text-stone-600 hover:text-brand-600'
   }`;
 
-const PUBLIC_LINKS = [
-  { to: '/about-us', label: 'About Us' },
-];
-
-const USER_LINKS = [
+const BASE_LINKS = [
   { to: '/', label: 'Home', end: true },
+  { to: '/about-us', label: 'About Us' },
   { to: '/items', label: 'Items' },
   { to: '/events', label: 'Events' },
   { to: '/invitation', label: 'Invitation' },
   { to: '/gallery', label: 'Gallery' },
   { to: '/rsvp', label: 'RSVP' },
   { to: '/donate', label: 'Donate' },
+];
+
+const AUTH_LINKS = [
   { to: '/profile', label: 'Profile' },
 ];
 
 const ADMIN_LINKS = [
-  { to: '/admin', label: 'Home', end: true },
-  { to: '/items', label: 'Items' },
-  { to: '/events', label: 'Events' },
+  { to: '/dashboard', label: 'Dashboard' },
   { to: '/contributions', label: 'Contributions' },
-  { to: '/gallery', label: 'Gallery' },
   { to: '/admin', label: 'Admin Panel' },
-  { to: '/profile', label: 'Profile' },
 ];
 
 export default function Layout() {
   const { user, logout } = useAuth();
   const whatsapp = import.meta.env.VITE_WHATSAPP_URL;
   const isAdmin = user?.role === 'admin' || user?.role === 'staff';
-  const links = [...PUBLIC_LINKS, ...(user ? (isAdmin ? ADMIN_LINKS : USER_LINKS) : [])];
+  const links = [
+    ...BASE_LINKS,
+    ...(user ? [...(isAdmin ? ADMIN_LINKS : []), ...AUTH_LINKS] : []),
+  ];
 
   return (
     <div className="min-h-full flex flex-col">
