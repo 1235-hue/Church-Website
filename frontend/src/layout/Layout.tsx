@@ -37,9 +37,16 @@ export default function Layout() {
     ...(user ? [...(isAdmin ? ADMIN_LINKS : []), ...AUTH_LINKS] : []),
   ];
   const chatMessage = 'Hello, I have a question about the Cathedral of Praise Ministries fundraiser.';
-  const whatsappLink = whatsapp
-    ? `${whatsapp}${whatsapp.includes('?') ? '&' : '?'}text=${encodeURIComponent(chatMessage)}`
-    : undefined;
+  let whatsappLink: string | undefined;
+  if (whatsapp) {
+    // If it's a group invite link (chat.whatsapp.com) open it directly.
+    if (whatsapp.includes('chat.whatsapp.com')) {
+      whatsappLink = whatsapp;
+    } else {
+      // For direct chat links or wa.me, append a prefilled message
+      whatsappLink = `${whatsapp}${whatsapp.includes('?') ? '&' : '?'}text=${encodeURIComponent(chatMessage)}`;
+    }
+  }
 
   return (
     <div className="min-h-full flex flex-col">
