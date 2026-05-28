@@ -36,6 +36,10 @@ export default function Layout() {
     ...BASE_LINKS,
     ...(user ? [...(isAdmin ? ADMIN_LINKS : []), ...AUTH_LINKS] : []),
   ];
+  const chatMessage = 'Hello, I have a question about the Cathedral of Praise Ministries fundraiser.';
+  const whatsappLink = whatsapp
+    ? `${whatsapp}${whatsapp.includes('?') ? '&' : '?'}text=${encodeURIComponent(chatMessage)}`
+    : undefined;
 
   return (
     <div className="min-h-full flex flex-col">
@@ -93,6 +97,22 @@ export default function Layout() {
           </div>
         )}
       </header>
+
+      {whatsappLink && (
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noreferrer"
+          className="fixed bottom-4 right-4 z-50 inline-flex items-center gap-2 rounded-full bg-emerald-500 px-4 py-3 text-sm text-white shadow-2xl transition hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-300"
+        >
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-emerald-600">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5" aria-hidden="true">
+              <path d="M20.52 3.48A11.93 11.93 0 0012 0C5.37 0 .03 5.37.03 12.01c0 2.12.56 4.2 1.62 6.01L0 24l6.25-1.62a11.93 11.93 0 005.75 1.43h.01c6.63 0 11.97-5.37 11.97-12.01 0-3.21-1.25-6.22-3.44-8.32zM12 21.6c-1.82 0-3.59-.49-5.13-1.42l-.36-.22-3.71.96.99-3.62-.24-.37A9.53 9.53 0 012.4 12c0-5.27 4.28-9.55 9.55-9.55 2.55 0 4.95.99 6.75 2.78a9.48 9.48 0 012.8 6.78c0 5.27-4.28 9.55-9.55 9.55zm5.31-7.55c-.23-.12-1.35-.66-1.56-.73-.21-.07-.36-.12-.51.12-.15.24-.56.73-.69.88-.13.15-.27.17-.5.06-.23-.12-1-0.37-1.88-1.16-.69-.61-1.16-1.36-1.29-1.59-.13-.24-.01-.37.1-.49.1-.1.23-.27.35-.41.12-.15.16-.26.24-.43.08-.17.04-.32-.02-.44-.06-.12-.51-1.23-.7-1.69-.18-.44-.36-.38-.51-.38-.13 0-.28 0-.43 0-.15 0-.39.06-.59.28-.21.22-.79.77-.79 1.88 0 1.1.81 2.16.92 2.31.1.15 1.58 2.42 3.82 3.39 1.06.46 1.88.73 2.52.93.84.27 1.61.23 2.22.14.68-.1 1.35-.55 1.54-1.08.19-.53.19-.98.13-1.08-.06-.1-.22-.16-.45-.28z" />
+            </svg>
+          </span>
+          <span>Chat with us</span>
+        </a>
+      )}
 
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-8">
         <Outlet />
