@@ -15,22 +15,7 @@ const FALLBACK: EventItem[] = [
     starts_at: '2026-06-01T17:00:00Z',
     location: 'Grace Community Church, Main Hall',
   },
-  {
-    id: 'e2',
-    title: 'Worship Night',
-    description: 'An evening of praise, worship and prayer led by our combined choirs.',
-    poster_url: 'https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=1200&q=80',
-    starts_at: '2026-05-10T18:30:00Z',
-    location: 'Grace Community Church, Sanctuary',
-  },
-  {
-    id: 'e3',
-    title: 'Community Outreach Day',
-    description: 'Serving our neighborhood with food, prayer and fellowship.',
-    poster_url: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80',
-    starts_at: '2026-05-24T09:00:00Z',
-    location: 'Church Grounds & City Park',
-  },
+ 
 ];
 
 const EventSkeleton = () => (
